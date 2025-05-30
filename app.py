@@ -8,7 +8,6 @@ import datetime
 # TaxiFare prediction front
 '''
 
-
 d = st.date_input(
     "Input date: ",
     datetime.date(2014,7,6))
@@ -43,23 +42,24 @@ st.write('The number of passengers ', n_passengers)
 
 lw_url = 'https://taxifare.lewagon.ai/predict'
 
-url = "https://taxifare-299294999012.europe-west1.run.app/predict"
+if st.button('Make prediction'):
+    url = "https://taxifare-299294999012.europe-west1.run.app/predict"
 
-params = {"pickup_datetime": input_dt,  # 2014-07-06 19:18:00
-        "pickup_longitude": p_long,    # -73.950655
-        "pickup_latitude": p_lat,     # 40.783282
-        "dropoff_longitude": d_long,   # -73.984365
-        "dropoff_latitude": d_lat,    # 40.769802
-        "passenger_count": n_passengers
-}
-response = requests.get(url,params=params)
+    params = {"pickup_datetime": input_dt,  # 2014-07-06 19:18:00
+            "pickup_longitude": p_long,    # -73.950655
+            "pickup_latitude": p_lat,     # 40.783282
+            "dropoff_longitude": d_long,   # -73.984365
+            "dropoff_latitude": d_lat,    # 40.769802
+            "passenger_count": n_passengers
+    }
+    response = requests.get(url,params=params)
 
-response = response.json()
+    response = response.json()
 
-predicted_fare = round(response["fare"],2)
+    predicted_fare = round(response["fare"],2)
 
-"""
-##  Let's predict the fare for your taxi ride
-"""
+    """
+    ##  Let's predict the fare for your taxi ride
+    """
 
-st.write(f"The predicted fare is from your API is ${predicted_fare}")
+    st.write(f"The predicted fare is from your API is ${predicted_fare}")
